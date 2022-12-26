@@ -1,5 +1,14 @@
-import { get, set } from "./utils/local-storage.js";
+import {
+  get as getFromLocalStorage,
+  set as setInLocalStorage,
+} from "./utils/local-storage.js";
 import { usersKey, userInfoKey } from "./constants/local-storage-keys.js";
+
+const userInfo = getFromLocalStorage(userInfoKey);
+
+if (userInfo) {
+  window.location.href = "/home";
+}
 
 const userNameInput = document.querySelector("#user_name_input");
 const passwordInput = document.querySelector("#password_input");
@@ -38,7 +47,7 @@ const login = () => {
     return;
   }
 
-  const users = get(usersKey) || [];
+  const users = getFromLocalStorage(usersKey) || [];
 
   const user = users.find(
     (user) => user.userName === userName && user.password === password
@@ -54,7 +63,8 @@ const login = () => {
     return;
   }
 
-  set(userInfoKey, user);
+  setInLocalStorage(userInfoKey, user);
+  window.location.href = "/home";
 };
 
 loginButton.addEventListener("click", login);

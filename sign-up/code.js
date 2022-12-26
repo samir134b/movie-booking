@@ -1,9 +1,13 @@
-import { get, set } from "../utils/local-storage.js";
+import {
+  get as getFromLocalStorage,
+  set as setInLocalStorage,
+} from "../utils/local-storage.js";
 import { userInfoKey, usersKey } from "../constants/local-storage-keys.js";
 
-const userInfo = get(userInfoKey);
+const userInfo = getFromLocalStorage(userInfoKey);
+
 if (userInfo) {
-  // window.location.href = "/home.html";
+  window.location.href = "/home";
 }
 
 const userNameInput = document.querySelector("#user_name_input");
@@ -29,26 +33,36 @@ const onSignUpClick = () => {
   passwordInput.classList.remove("is-invalid");
   confirmPasswordInput.classList.remove("is-invalid");
 
-  let isValid = true;
+  let isFormValid = true;
 
   if (userName === "") {
     userNameInput.classList.add("is-invalid");
     invalidFeedbackForUserName.innerText = "Username is required";
-    isValid = false;
+    isFormValid = false;
   }
 
   if (password === "") {
     passwordInput.classList.add("is-invalid");
     invalidFeedbackForPassword.innerText = "Password is required";
-    isValid = false;
+    isFormValid = false;
     return;
+  }
+
+  const users = getFromLocalStorage(usersKey) || [];
+
+  const isUserNameTaken = users.some((user) => user.userName === userName);
+
+  if (isUserNameTaken) {
+    userNameInput.classList.add("is-invalid");
+    invalidFeedbackForUserName.innerText = "Username is already taken";
+    isFormValid = false;
   }
 
   if (password.length < 6) {
     passwordInput.classList.add("is-invalid");
     invalidFeedbackForPassword.innerText =
       "Password must be at least 6 characters";
-    isValid = false;
+    isFormValid = false;
     return;
   }
 
@@ -59,20 +73,10 @@ const onSignUpClick = () => {
     invalidFeedbackForPassword.innerText = "Password does not match";
     invalidFeedbackForConfirmPassword.innerText = "Password does not match";
 
-    isValid = false;
+    isFormValid = false;
   }
 
-  if (!isValid) {
-    return;
-  }
-
-  const users = get(usersKey) || [];
-
-  const isUserNameTaken = users.some((user) => user.userName === userName);
-
-  if (isUserNameTaken) {
-    userNameInput.classList.add("is-invalid");
-    invalidFeedbackForUserName.innerText = "Username is already taken";
+  if (!isFormValid) {
     return;
   }
 
@@ -81,7 +85,7 @@ const onSignUpClick = () => {
     password,
   };
 
-  set(usersKey, [...users, userObj]);
+  setInLocalStorage(usersKey, [...users, userObj]);
   window.location.href = "/";
 };
 
