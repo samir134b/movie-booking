@@ -3,7 +3,7 @@ import {
   get as getFromLocalStorage,
   set as setInLocalStorage,
 } from "../utils/local-storage.js";
-import movies from "./movies.js";
+import movies from "../data/movies.js";
 
 const userInfo = getFromLocalStorage(userInfoKey);
 
@@ -47,7 +47,7 @@ const renderMovies = () => {
 
     const cardLink = document.createElement("a");
     cardLink.classList.add("btn", "btn-dark");
-    cardLink.href = "#";
+    cardLink.href = `/movie?movieId=${movie.id}`;
     cardLink.textContent = "Book now";
 
     moviesContainer.appendChild(container);
