@@ -8,7 +8,7 @@ import movies from "../data/movies.js";
 const userInfo = getFromLocalStorage(userInfoKey);
 
 if (!userInfo) {
-  window.location.href = "/";
+  window.location.href = "../";
 }
 
 const movieId = 2;
@@ -20,7 +20,7 @@ const logoutButton = document.querySelector("#logout_button");
 
 const logout = () => {
   setInLocalStorage(userInfoKey, null);
-  window.location.href = "/";
+  window.location.href = "../";
 };
 
 logoutButton.addEventListener("click", logout);

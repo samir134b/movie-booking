@@ -8,14 +8,14 @@ import movies from "../data/movies.js";
 const userInfo = getFromLocalStorage(userInfoKey);
 
 if (!userInfo) {
-  window.location.href = "/";
+  window.location.href = "../";
 }
 
 const logoutButton = document.querySelector("#logout_button");
 
 const logout = () => {
   setInLocalStorage(userInfoKey, null);
-  window.location.href = "/";
+  window.location.href = "../";
 };
 
 logoutButton.addEventListener("click", logout);
@@ -47,7 +47,7 @@ const renderMovies = () => {
 
     const cardLink = document.createElement("a");
     cardLink.classList.add("btn", "btn-dark");
-    cardLink.href = `/movie?movieId=${movie.id}`;
+    cardLink.href = `../movie?movieId=${movie.id}`;
     cardLink.textContent = "Book now";
 
     moviesContainer.appendChild(container);

@@ -7,7 +7,7 @@ import { userInfoKey, usersKey } from "../constants/local-storage-keys.js";
 const userInfo = getFromLocalStorage(userInfoKey);
 
 if (userInfo) {
-  window.location.href = "/home";
+  window.location.href = "../home";
 }
 
 const userNameInput = document.querySelector("#user_name_input");
@@ -86,7 +86,7 @@ const onSignUpClick = () => {
   };
 
   setInLocalStorage(usersKey, [...users, userObj]);
-  window.location.href = "/";
+  window.location.href = "../";
 };
 
 const signupButton = document.querySelector("#signup_button");
