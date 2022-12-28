@@ -3,6 +3,7 @@ import {
   get as getFromLocalStorage,
   set as setInLocalStorage,
 } from "../utils/local-storage.js";
+import { getQueryValue } from "../utils/url.js";
 import movies from "../data/movies.js";
 
 const userInfo = getFromLocalStorage(userInfoKey);
@@ -11,7 +12,11 @@ if (!userInfo) {
   window.location.href = "../";
 }
 
-const movieId = 2;
+const movieId = parseInt(getQueryValue("movieId"));
+
+if (isNaN(movieId)) {
+  window.location.href = "../home";
+}
 
 const bookingInfo = getFromLocalStorage(bookingKey) || {};
 const movieBookingInfo = bookingInfo[movieId] || {};
@@ -35,7 +40,7 @@ const seatsContainer = document.querySelector("#seats");
 let selectedSeats = [];
 
 const renderSeats = () => {
-  for (let i = 0; i < 4; i++) {
+  for (let i = 0; i < 54; i++) {
     const seatImage = document.createElement("img");
 
     const isSeatBooked = Boolean(movieBookingInfo[i]);
@@ -44,9 +49,20 @@ const renderSeats = () => {
       ? "/icons/seat-solid-red.svg"
       : "/icons/seat-outlined.svg";
 
+    if (isSeatBooked) {
+      seatImage.classList.add("pe-none");
+    }
+
+    seatImage.classList.add("col-2");
+
     seatImage.width = 50;
     seatImage.height = 50;
+    seatImage.setAttribute("role", "button");
     seatImage.onclick = () => {
+      if (isSeatBooked) {
+        return;
+      }
+
       if (selectedSeats.includes(i)) {
         selectedSeats = selectedSeats.filter((seatID) => seatID !== i);
         seatImage.src = "/icons/seat-outlined.svg";
@@ -63,22 +79,20 @@ const renderSeats = () => {
 
 renderSeats();
 
-const successAlert = document.querySelector("#success_alert");
-
 const bookSeats = () => {
-  const bookingMovieObject = {};
+  const bookingMovieObject = { ...movieBookingInfo };
 
   selectedSeats.forEach((seatID) => {
     bookingMovieObject[seatID] = userInfo.userName;
   });
 
   const bookingObject = {
+    ...bookingInfo,
     [movieId]: bookingMovieObject,
   };
 
   setInLocalStorage(bookingKey, bookingObject);
-
-  successAlert.classList.remove("d-none");
+  window.location.href = "../bookings";
 };
 
 const bookButton = document.querySelector("#book_button");

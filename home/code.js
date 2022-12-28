@@ -25,7 +25,7 @@ const moviesContainer = document.querySelector("#movies_container");
 const renderMovies = () => {
   movies.forEach((movie) => {
     const container = document.createElement("div");
-    container.classList.add("col-4");
+    container.classList.add("col-sm-12", "col-md-6", "col-lg-4", "col-xl-3");
 
     const card = document.createElement("div");
     card.classList.add("card");

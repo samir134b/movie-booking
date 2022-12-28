@@ -28,14 +28,19 @@
     </nav>
 
     <div class="container my-3">
-      <h1 id="heading"></h1>
+      <h1 id="heading">My bookings</h1>
 
-      <div id="seats" class="row g-4 my-3"></div>
-
-      <div class="text-center my-3">
-        <button type="button" class="btn btn-dark" id="book_button">
-          Book
-        </button>
+      <div>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Movie name</th>
+              <th scope="col">Seats</th>
+            </tr>
+          </thead>
+          <tbody id="table_body"></tbody>
+        </table>
       </div>
     </div>
 
