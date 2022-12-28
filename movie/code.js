@@ -13,7 +13,7 @@ if (!userInfo) {
 
 const movieId = 2;
 
-const bookingInfo = getFromLocalStorage(bookingKey);
+const bookingInfo = getFromLocalStorage(bookingKey) || {};
 const movieBookingInfo = bookingInfo[movieId] || {};
 
 const logoutButton = document.querySelector("#logout_button");

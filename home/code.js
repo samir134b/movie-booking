@@ -47,7 +47,7 @@ const renderMovies = () => {
 
     const cardLink = document.createElement("a");
     cardLink.classList.add("btn", "btn-dark");
-    cardLink.href = `../movie?movieId=${movie.id}`;
+    cardLink.href = `../movie/index.html?movieId=${movie.id}`;
     cardLink.textContent = "Book now";
 
     moviesContainer.appendChild(container);
