@@ -46,8 +46,8 @@ const renderSeats = () => {
     const isSeatBooked = Boolean(movieBookingInfo[i]);
 
     seatImage.src = isSeatBooked
-      ? "/icons/seat-solid-red.svg"
-      : "/icons/seat-outlined.svg";
+      ? "../icons/seat-solid-red.svg"
+      : "../icons/seat-outlined.svg";
 
     if (isSeatBooked) {
       seatImage.classList.add("pe-none");
@@ -65,12 +65,12 @@ const renderSeats = () => {
 
       if (selectedSeats.includes(i)) {
         selectedSeats = selectedSeats.filter((seatID) => seatID !== i);
-        seatImage.src = "/icons/seat-outlined.svg";
+        seatImage.src = "../icons/seat-outlined.svg";
         return;
       }
 
       selectedSeats.push(i);
-      seatImage.src = "/icons/seat-solid-black.svg";
+      seatImage.src = "../icons/seat-solid-black.svg";
     };
 
     seatsContainer.appendChild(seatImage);
